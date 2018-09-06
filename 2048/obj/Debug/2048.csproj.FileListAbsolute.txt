@@ -1,0 +1,36 @@
+c:\users\sajjad\documents\visual studio 2013\Projects\2048\2048\bin\Debug\2048.exe.config
+c:\users\sajjad\documents\visual studio 2013\Projects\2048\2048\obj\Debug\2048.csprojResolveAssemblyReference.cache
+c:\users\sajjad\documents\visual studio 2013\Projects\2048\2048\obj\Debug\_2048.Form1.resources
+c:\users\sajjad\documents\visual studio 2013\Projects\2048\2048\obj\Debug\_2048.Properties.Resources.resources
+c:\users\sajjad\documents\visual studio 2013\Projects\2048\2048\obj\Debug\2048.csproj.GenerateResource.Cache
+c:\users\sajjad\documents\visual studio 2013\Projects\2048\2048\bin\Debug\2048.exe
+c:\users\sajjad\documents\visual studio 2013\Projects\2048\2048\bin\Debug\2048.pdb
+c:\users\sajjad\documents\visual studio 2013\Projects\2048\2048\obj\Debug\2048.exe
+c:\users\sajjad\documents\visual studio 2013\Projects\2048\2048\obj\Debug\2048.pdb
+F:\Programming\C#\Project\2048\2048\bin\Debug\2048.exe.config
+F:\Programming\C#\Project\2048\2048\obj\Debug\2048.exe
+F:\Programming\C#\Project\2048\2048\obj\Debug\2048.pdb
+F:\Programming\C#\Project\2048\2048\bin\Debug\2048.exe
+F:\Programming\C#\Project\2048\2048\bin\Debug\2048.pdb
+F:\Programming\C#\Project\2048\2048\obj\Debug\2048.csprojResolveAssemblyReference.cache
+F:\Programming\C#\Project\2048\2048\obj\Debug\_2048.Form1.resources
+F:\Programming\C#\Project\2048\2048\obj\Debug\_2048.Properties.Resources.resources
+F:\Programming\C#\Project\2048\2048\obj\Debug\2048.csproj.GenerateResource.Cache
+E:\Programming\C#\Project\2048\2048\bin\Debug\2048.exe.config
+E:\Programming\C#\Project\2048\2048\obj\Debug\2048.exe
+E:\Programming\C#\Project\2048\2048\obj\Debug\2048.pdb
+E:\Programming\C#\Project\2048\2048\bin\Debug\2048.exe
+E:\Programming\C#\Project\2048\2048\bin\Debug\2048.pdb
+E:\Programming\C#\Project\2048\2048\obj\Debug\2048.csprojResolveAssemblyReference.cache
+E:\Programming\C#\Project\2048\2048\obj\Debug\_2048.Form1.resources
+E:\Programming\C#\Project\2048\2048\obj\Debug\_2048.Properties.Resources.resources
+E:\Programming\C#\Project\2048\2048\obj\Debug\2048.csproj.GenerateResource.Cache
+E:\Computer science\C#\Projects\2048\2048\bin\Debug\2048.exe.config
+E:\Computer science\C#\Projects\2048\2048\obj\Debug\2048.exe
+E:\Computer science\C#\Projects\2048\2048\obj\Debug\2048.pdb
+E:\Computer science\C#\Projects\2048\2048\bin\Debug\2048.exe
+E:\Computer science\C#\Projects\2048\2048\bin\Debug\2048.pdb
+E:\Computer science\C#\Projects\2048\2048\obj\Debug\2048.csprojResolveAssemblyReference.cache
+E:\Computer science\C#\Projects\2048\2048\obj\Debug\_2048.Form1.resources
+E:\Computer science\C#\Projects\2048\2048\obj\Debug\_2048.Properties.Resources.resources
+E:\Computer science\C#\Projects\2048\2048\obj\Debug\2048.csproj.GenerateResource.Cache
