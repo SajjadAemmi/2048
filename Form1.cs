@@ -17,78 +17,39 @@ namespace _2048
             InitializeComponent();
         }
 
-        Label[,] a = new Label[4, 4];
+        Label[,] board = new Label[4, 4];
         Random rand = new Random();
-        Int32 b, c, x, y, score = 0, newnum;
-        Boolean sw, sw1, sw2, sw3;
-        Char ch;
+        Int32 b, x, y, score = 0, newnum;
+        Boolean sw, sw1, sw2;
+
+        Char ch = ' ';
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            a[0, 0] = label1;
-            a[0, 1] = label2;
-            a[0, 2] = label3;
-            a[0, 3] = label4;
-            a[1, 0] = label5;
-            a[1, 1] = label6;
-            a[1, 2] = label7;
-            a[1, 3] = label8;
-            a[2, 0] = label9;
-            a[2, 1] = label10;
-            a[2, 2] = label11;
-            a[2, 3] = label12;
-            a[3, 0] = label13;
-            a[3, 1] = label14;
-            a[3, 2] = label15;
-            a[3, 3] = label16;
+            board = new Label[4, 4];
 
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    a[i, j].Text = "0";
+                    board[i, j] = new Label();
+                    board[i, j].Text = "";
+                    board[i, j].Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Left;
+                    board[i, j].Font = new Font("Tahoma", 32, FontStyle.Bold);
+                    var margin = board[i, j].Margin;
+                    margin.All = 4;
+                    board[i, j].Margin = margin;
+                    board[i, j].TextAlign = ContentAlignment.MiddleCenter;
+                    tlp_tiles.Controls.Add(board[i, j], i, j);
                 }
             }
 
             for (int count = 0; count < 2; count++)
             {
-                sw2 = true;
-                while (sw2 == true)
-                {
-                    x = rand.Next(0, 4);
-                    y = rand.Next(0, 4);
-                    if (a[x, y].Text.CompareTo("0") == 0)
-                        sw2 = false;
-                }
-
-                newnum = rand.Next(0, 3);
-                if (newnum == 0)
-                    a[x, y].Text = "4";
-                if (newnum == 1 || newnum == 2)
-                    a[x, y].Text = "2";
+                generateNewNumber();
             }
 
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    if (a[i, j].Text.CompareTo("0") == 0)
-                    {
-                        a[i, j].ForeColor = Color.White;
-                        a[i, j].BackColor = Color.White;
-                    }
-                    else if (a[i, j].Text.CompareTo("2") == 0)
-                    {
-                        a[i, j].ForeColor = Color.Black;
-                        a[i, j].BackColor = Color.LightGreen;
-                    }
-                    else if (a[i, j].Text.CompareTo("4") == 0)
-                    {
-                        a[i, j].ForeColor = Color.Black;
-                        a[i, j].BackColor = Color.GreenYellow;
-                    }
-                }
-            }
+            setAppearance();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -97,76 +58,26 @@ namespace _2048
 
             for (int count = 0; count < 4; count++)
             {
-                if (e.KeyData == Keys.Up)
-                {
-                    ch = 'U';
-                    for (int i = 0; i < 4; i++)
-                    {
-                        for (int j = 0; j < 4; j++)
-                        {
-                            if (i - 1 != -1 && a[i, j].Text.CompareTo("0") != 0 && a[i - 1, j].Text.CompareTo("0") == 0)
-                            {
-                                a[i - 1, j].Text = a[i, j].Text;
-                                a[i, j].Text = "0";
-                                sw = false;
-                            }
-                            if (i - 1 != -1 && a[i, j].Text.CompareTo(a[i - 1, j].Text) == 0 && a[i, j].Text.CompareTo("0") != 0)
-                            {
-                                b = Convert.ToInt32(a[i - 1, j].Text);
-                                b *= 2;
-                                a[i - 1, j].Text = Convert.ToString(b);
-                                a[i, j].Text = "0";
-                                score = score + Convert.ToInt32(a[i - 1, j].Text);
-                                sw = false;
-                            }
-                        }
-                    }
-                }
-                else if (e.KeyData == Keys.Down)
-                {
-                    ch = 'D';
-                    for (int i = 0; i < 4; i++)
-                    {
-                        for (int j = 0; j < 4; j++)
-                        {
-                            if (i + 1 != 4 && a[i, j].Text.CompareTo("0") != 0 && a[i + 1, j].Text.CompareTo("0") == 0)
-                            {
-                                a[i + 1, j].Text = a[i, j].Text;
-                                a[i, j].Text = "0";
-                                sw = false;
-                            }
-                            if (i + 1 != 4 && a[i, j].Text.CompareTo(a[i + 1, j].Text) == 0 && a[i, j].Text.CompareTo("0") != 0)
-                            {
-                                b = Convert.ToInt32(a[i + 1, j].Text);
-                                b *= 2;
-                                a[i + 1, j].Text = Convert.ToString(b);
-                                a[i, j].Text = "0";
-                                score = score + Convert.ToInt32(a[i + 1, j].Text);
-                                sw = false;
-                            }
-                        }
-                    }
-                }
-                else if (e.KeyData == Keys.Left)
+                if (e.KeyData == Keys.Left)
                 {
                     ch = 'L';
                     for (int i = 0; i < 4; i++)
                     {
                         for (int j = 0; j < 4; j++)
                         {
-                            if (j - 1 != -1 && a[i, j].Text.CompareTo("0") != 0 && a[i, j - 1].Text.CompareTo("0") == 0)
+                            if (i - 1 != -1 && board[i, j].Text.CompareTo("") != 0 && board[i - 1, j].Text.CompareTo("") == 0)
                             {
-                                a[i, j - 1].Text = a[i, j].Text;
-                                a[i, j].Text = "0";
+                                board[i - 1, j].Text = board[i, j].Text;
+                                board[i, j].Text = "";
                                 sw = false;
                             }
-                            if (j - 1 != -1 && a[i, j].Text.CompareTo(a[i, j - 1].Text) == 0 && a[i, j].Text.CompareTo("0") != 0)
+                            if (i - 1 != -1 && board[i, j].Text.CompareTo(board[i - 1, j].Text) == 0 && board[i, j].Text.CompareTo("") != 0)
                             {
-                                b = Convert.ToInt32(a[i, j - 1].Text);
+                                b = Convert.ToInt32(board[i - 1, j].Text);
                                 b *= 2;
-                                a[i, j - 1].Text = Convert.ToString(b);
-                                a[i, j].Text = "0";
-                                score = score + Convert.ToInt32(a[i, j - 1].Text);
+                                board[i - 1, j].Text = Convert.ToString(b);
+                                board[i, j].Text = "";
+                                score = score + Convert.ToInt32(board[i - 1, j].Text);
                                 sw = false;
                             }
                         }
@@ -179,19 +90,69 @@ namespace _2048
                     {
                         for (int j = 0; j < 4; j++)
                         {
-                            if (j + 1 != 4 && a[i, j].Text.CompareTo("0") != 0 && a[i, j + 1].Text.CompareTo("0") == 0)
+                            if (i + 1 != 4 && board[i, j].Text.CompareTo("") != 0 && board[i + 1, j].Text.CompareTo("") == 0)
                             {
-                                a[i, j + 1].Text = a[i, j].Text;
-                                a[i, j].Text = "0";
+                                board[i + 1, j].Text = board[i, j].Text;
+                                board[i, j].Text = "";
                                 sw = false;
                             }
-                            if (j + 1 != 4 && a[i, j].Text.CompareTo(a[i, j + 1].Text) == 0 && a[i, j].Text.CompareTo("0") != 0)
+                            if (i + 1 != 4 && board[i, j].Text.CompareTo(board[i + 1, j].Text) == 0 && board[i, j].Text.CompareTo("") != 0)
                             {
-                                b = Convert.ToInt32(a[i, j + 1].Text);
+                                b = Convert.ToInt32(board[i + 1, j].Text);
                                 b *= 2;
-                                a[i, j + 1].Text = Convert.ToString(b);
-                                a[i, j].Text = "0";
-                                score = score + Convert.ToInt32(a[i, j + 1].Text);
+                                board[i + 1, j].Text = Convert.ToString(b);
+                                board[i, j].Text = "";
+                                score = score + Convert.ToInt32(board[i + 1, j].Text);
+                                sw = false;
+                            }
+                        }
+                    }
+                }
+                else if (e.KeyData == Keys.Up)
+                {
+                    ch = 'U';
+                    for (int i = 0; i < 4; i++)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if (j - 1 != -1 && board[i, j].Text.CompareTo("") != 0 && board[i, j - 1].Text.CompareTo("") == 0)
+                            {
+                                board[i, j - 1].Text = board[i, j].Text;
+                                board[i, j].Text = "";
+                                sw = false;
+                            }
+                            if (j - 1 != -1 && board[i, j].Text.CompareTo(board[i, j - 1].Text) == 0 && board[i, j].Text.CompareTo("") != 0)
+                            {
+                                b = Convert.ToInt32(board[i, j - 1].Text);
+                                b *= 2;
+                                board[i, j - 1].Text = Convert.ToString(b);
+                                board[i, j].Text = "";
+                                score = score + Convert.ToInt32(board[i, j - 1].Text);
+                                sw = false;
+                            }
+                        }
+                    }
+                }
+                else if (e.KeyData == Keys.Down)
+                {
+                    ch = 'D';
+                    for (int i = 0; i < 4; i++)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if (j + 1 != 4 && board[i, j].Text.CompareTo("") != 0 && board[i, j + 1].Text.CompareTo("") == 0)
+                            {
+                                board[i, j + 1].Text = board[i, j].Text;
+                                board[i, j].Text = "";
+                                sw = false;
+                            }
+                            if (j + 1 != 4 && board[i, j].Text.CompareTo(board[i, j + 1].Text) == 0 && board[i, j].Text.CompareTo("") != 0)
+                            {
+                                b = Convert.ToInt32(board[i, j + 1].Text);
+                                b *= 2;
+                                board[i, j + 1].Text = Convert.ToString(b);
+                                board[i, j].Text = "";
+                                score = score + Convert.ToInt32(board[i, j + 1].Text);
                                 sw = false;
                             }
                         }
@@ -211,11 +172,11 @@ namespace _2048
                 {
                     for (int j = 0; j < 4; j++)
                     {
-                        if (a[i, j].Text.CompareTo("0") == 0)
+                        if (board[i, j].Text.CompareTo("") == 0)
                         {
                             sw1 = false;
                         }
-                        if (a[i, j].Text.CompareTo("2048") == 0)
+                        if (board[i, j].Text.CompareTo("2048") == 0)
                         {
                             MessageBox.Show("You Win!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
@@ -227,90 +188,12 @@ namespace _2048
                     return;
                 }
             }
-            sw2 = true;
-            while (sw2 == true)
-            {
-                x = rand.Next(0, 4);
-                y = rand.Next(0, 4);
-                if (a[x, y].Text.CompareTo("0") == 0 && ((ch == 'U' && x == 3) || (ch == 'D' && x == 0) || (ch == 'L' && y == 3) || (ch == 'R' && y == 0)))
-                    sw2 = false;
-            }
 
             if (sw1 == true)
             {
-                newnum = rand.Next(0, 3);
-                if (newnum == 0)
-                    a[x, y].Text = "4";
-                if (newnum == 1 || newnum == 2)
-                    a[x, y].Text = "2";
+                generateNewNumber();
             }
-
-            for (int i = 0; i < 4; i++)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    if (a[i, j].Text.CompareTo("0") == 0)
-                    {
-                        a[i, j].ForeColor = Color.White;
-                        a[i, j].BackColor = Color.White;
-                    }
-                    else if (a[i, j].Text.CompareTo("2") == 0)
-                    {
-                        a[i, j].ForeColor = Color.Black;
-                        a[i, j].BackColor = Color.LightGreen;
-                    }
-                    else if (a[i, j].Text.CompareTo("4") == 0)
-                    {
-                        a[i, j].ForeColor = Color.Black;
-                        a[i, j].BackColor = Color.GreenYellow;
-                    }
-                    else if (a[i, j].Text.CompareTo("8") == 0)
-                    {
-                        a[i, j].ForeColor = Color.White;
-                        a[i, j].BackColor = Color.CadetBlue;
-                    }
-                    else if (a[i, j].Text.CompareTo("16") == 0)
-                    {
-                        a[i, j].ForeColor = Color.White;
-                        a[i, j].BackColor = Color.Orchid;
-                    }
-                    else if (a[i, j].Text.CompareTo("32") == 0)
-                    {
-                        a[i, j].ForeColor = Color.White;
-                        a[i, j].BackColor = Color.DarkMagenta;
-                    }
-                    else if (a[i, j].Text.CompareTo("64") == 0)
-                    {
-                        a[i, j].ForeColor = Color.Black;
-                        a[i, j].BackColor = Color.Cyan;
-                    }
-                    else if (a[i, j].Text.CompareTo("128") == 0)
-                    {
-                        a[i, j].ForeColor = Color.White;
-                        a[i, j].BackColor = Color.LightSeaGreen;
-                    }
-                    else if (a[i, j].Text.CompareTo("256") == 0)
-                    {
-                        a[i, j].ForeColor = Color.White;
-                        a[i, j].BackColor = Color.Magenta;
-                    }
-                    else if (a[i, j].Text.CompareTo("512") == 0)
-                    {
-                        a[i, j].ForeColor = Color.White;
-                        a[i, j].BackColor = Color.Orange;
-                    }
-                    else if (a[i, j].Text.CompareTo("1024") == 0)
-                    {
-                        a[i, j].ForeColor = Color.White;
-                        a[i, j].BackColor = Color.Silver;
-                    }
-                    else if (a[i, j].Text.CompareTo("2048") == 0)
-                    {
-                        a[i, j].ForeColor = Color.White;
-                        a[i, j].BackColor = Color.Gold;
-                    }
-                }
-            }
+            setAppearance();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -324,7 +207,7 @@ namespace _2048
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    a[i, j].Text = "0";
+                    board[i, j].Text = "";
                 }
             }
 
@@ -335,34 +218,34 @@ namespace _2048
                 {
                     x = rand.Next(0, 4);
                     y = rand.Next(0, 4);
-                    if (a[x, y].Text.CompareTo("0") == 0)
+                    if (board[x, y].Text.CompareTo("") == 0)
                         sw2 = false;
                 }
 
                 newnum = rand.Next(0, 3);
                 if (newnum == 0)
-                    a[x, y].Text = "4";
+                    board[x, y].Text = "4";
                 if (newnum == 1 || newnum == 2)
-                    a[x, y].Text = "2";
+                    board[x, y].Text = "2";
             }
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    if (a[i, j].Text.CompareTo("0") == 0)
+                    if (board[i, j].Text.CompareTo("") == 0)
                     {
-                        a[i, j].ForeColor = Color.White;
-                        a[i, j].BackColor = Color.White;
+                        board[i, j].ForeColor = Color.White;
+                        board[i, j].BackColor = ColorTranslator.FromHtml("#cdc1b4");
                     }
-                    else if (a[i, j].Text.CompareTo("2") == 0)
+                    else if (board[i, j].Text.CompareTo("2") == 0)
                     {
-                        a[i, j].ForeColor = Color.Black;
-                        a[i, j].BackColor = Color.LightGreen;
+                        board[i, j].ForeColor = Color.Black;
+                        board[i, j].BackColor = Color.LightGreen;
                     }
-                    else if (a[i, j].Text.CompareTo("4") == 0)
+                    else if (board[i, j].Text.CompareTo("4") == 0)
                     {
-                        a[i, j].ForeColor = Color.Black;
-                        a[i, j].BackColor = Color.GreenYellow;
+                        board[i, j].ForeColor = Color.Black;
+                        board[i, j].BackColor = Color.GreenYellow;
                     }
                 }
             }
@@ -371,6 +254,104 @@ namespace _2048
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Do You Want To Exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        }
+
+        private void generateNewNumber()
+        {
+            sw2 = true;
+            while (sw2 == true)
+            {
+                x = rand.Next(0, 4);
+                y = rand.Next(0, 4);
+                if (board[x, y].Text.CompareTo("") == 0 && (ch == ' ' || (ch == 'L' && x == 3) || (ch == 'R' && x == 0) || (ch == 'U' && y == 3) || (ch == 'D' && y == 0)))
+                    sw2 = false;
+            }
+
+            newnum = rand.Next(0, 3);
+            if (newnum == 0)
+                board[x, y].Text = "4";
+            if (newnum == 1 || newnum == 2)
+                board[x, y].Text = "2";
+        }
+
+        private void setAppearance()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (board[i, j].Text.CompareTo("") == 0)
+                    {
+                        board[i, j].BackColor = ColorTranslator.FromHtml("#cdc1b4");
+                    }
+                    else if (board[i, j].Text.CompareTo("2") == 0)
+                    {
+                        board[i, j].Font = new Font("Tahoma", 32, FontStyle.Bold);
+                        board[i, j].ForeColor = ColorTranslator.FromHtml("#776E65");
+                        board[i, j].BackColor = ColorTranslator.FromHtml("#eee4da");
+                    }
+                    else if (board[i, j].Text.CompareTo("4") == 0)
+                    {
+                        board[i, j].Font = new Font("Tahoma", 32, FontStyle.Bold);
+                        board[i, j].ForeColor = ColorTranslator.FromHtml("#776E65");
+                        board[i, j].BackColor = ColorTranslator.FromHtml("#eee2cf");
+                    }
+                    else if (board[i, j].Text.CompareTo("8") == 0)
+                    {
+                        board[i, j].Font = new Font("Tahoma", 32, FontStyle.Bold);
+                        board[i, j].ForeColor = ColorTranslator.FromHtml("#f9f6f2");
+                        board[i, j].BackColor = ColorTranslator.FromHtml("#f3b27f");
+                    }
+                    else if (board[i, j].Text.CompareTo("16") == 0)
+                    {
+                        board[i, j].Font = new Font("Tahoma", 32, FontStyle.Bold);
+                        board[i, j].ForeColor = ColorTranslator.FromHtml("#f9f6f2");
+                        board[i, j].BackColor = ColorTranslator.FromHtml("#f6976c");
+                    }
+                    else if (board[i, j].Text.CompareTo("32") == 0)
+                    {
+                        board[i, j].Font = new Font("Tahoma", 32, FontStyle.Bold);
+                        board[i, j].ForeColor = ColorTranslator.FromHtml("#f9f6f2");
+                        board[i, j].BackColor = ColorTranslator.FromHtml("#f77f69");
+                    }
+                    else if (board[i, j].Text.CompareTo("64") == 0)
+                    {
+                        board[i, j].Font = new Font("Tahoma", 32, FontStyle.Bold);
+                        board[i, j].ForeColor = ColorTranslator.FromHtml("#f9f6f2");
+                        board[i, j].BackColor = ColorTranslator.FromHtml("#f76248");
+                    }
+                    else if (board[i, j].Text.CompareTo("128") == 0)
+                    {
+                        board[i, j].Font = new Font("Tahoma", 24, FontStyle.Bold);
+                        board[i, j].ForeColor = ColorTranslator.FromHtml("#f9f6f2");
+                        board[i, j].BackColor = ColorTranslator.FromHtml("#eed695");
+                    }
+                    else if (board[i, j].Text.CompareTo("256") == 0)
+                    {
+                        board[i, j].Font = new Font("Tahoma", 24, FontStyle.Bold);
+                        board[i, j].ForeColor = ColorTranslator.FromHtml("#f9f6f2");
+                        board[i, j].BackColor = ColorTranslator.FromHtml("#eed48a"); 
+                    }
+                    else if (board[i, j].Text.CompareTo("512") == 0)
+                    {
+                        board[i, j].Font = new Font("Tahoma", 24, FontStyle.Bold);
+                        board[i, j].ForeColor = ColorTranslator.FromHtml("#f9f6f2");
+                        board[i, j].BackColor = ColorTranslator.FromHtml("#eed48a");
+                    }
+                    else if (board[i, j].Text.CompareTo("1024") == 0)
+                    {
+                        board[i, j].Font = new Font("Tahoma", 16, FontStyle.Bold);
+                        board[i, j].ForeColor = ColorTranslator.FromHtml("#f9f6f2");
+                        board[i, j].BackColor = ColorTranslator.FromHtml("#eed48a");
+                    }
+                    else if (board[i, j].Text.CompareTo("2048") == 0)
+                    {
+                        board[i, j].Font = new Font("Tahoma", 16, FontStyle.Bold);
+                        board[i, j].ForeColor = ColorTranslator.FromHtml("#f9f6f2");
+                        board[i, j].BackColor = ColorTranslator.FromHtml("#eed48a");
+                    }
+                }
+            }
         }
     }
 }
